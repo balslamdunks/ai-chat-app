@@ -1,9 +1,9 @@
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 import os
 
-connection_string = "DefaultEndpointsProtocol=https;AccountName=mystoragemyname123;AccountKey=HyrwrdWWQm7X8Z5BSzIt4StbjYPX/VFGJ2L+j12B2nkb5ZJbLZG0ElKUT2SP5hxYaGP7W2Oxmo5F+AStCubK3w==;EndpointSuffix=core.windows.net"  #
-container_name = "mycontainer"
-blob_name = "mystoragemyname123"
+connection_string = "DefaultEndpointsProtocol=https;AccountName=langchainstoragegroup;AccountKey=QRkbYjDcPJRhUC3DUJujd+71bU2kSzHSHiI3MS9HZqtBibqQGumcoXZbNXfncQFbnYBgfUI8Btre+AStuTn2Ew==;EndpointSuffix=core.windows.net"  #
+container_name = "langchaincontainer"
+blob_name = "langchainstoragegroup"
 directory_path = "Data"
 
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
@@ -20,4 +20,4 @@ for root, dirs, files in os.walk(directory_path):
         with open(file_path, "rb") as data:
             blob_client.upload_blob(data)
 
-        print(f"Datei {file_path} erfolgreich zu {blob_name} hochgeladen!")
+        print(f"Data  {file_path} has been uploaded! {blob_name} under this blob!")

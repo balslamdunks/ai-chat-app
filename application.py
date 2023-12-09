@@ -1,5 +1,4 @@
-import streamlit as st
-from streamlit_chat import message
+import chainlit as cl
 from langchain.retrievers import AzureCognitiveSearchRetriever
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
@@ -10,14 +9,19 @@ memory = ConversationBufferMemory(
     memory_key="chat_history", return_messages=True, output_key="answer"
 )
 
-
+@cl.on_chat_start
 def load_chain():
-    prompt_template = """You are a helpful assistant for questions about the fictive animal huninchen.
+    prompt_template = """You are a helpful and friendly professor at Pennsylvania State University.
+    You are an expert at understanding the course details for the Artificial Intelligence Program at
+    Pennsylvania State University and your job is to assist students in
+    answering any questions they may have about the courses within the program.
+    If the answer can't be determined using only the information in the provided context simply output 'No Answer Available for Context'
 
     {context}
 
     Question: {question}
-    Answer here:"""
+    Answer here:
+    """
     PROMPT = PromptTemplate(
         template=prompt_template, input_variables=["context", "question"]
     )
@@ -25,39 +29,18 @@ def load_chain():
     retriever = AzureCognitiveSearchRetriever(content_key="content", top_k=10)
 
     chain = ConversationalRetrievalChain.from_llm(
-        llm=ChatOpenAI(),
+        llm=ChatOpenAI(model_name='gpt-4'),
         memory=memory,
         retriever=retriever,
         combine_docs_chain_kwargs={"prompt": PROMPT},
     )
     return chain
 
-
 chain = load_chain()
 
-st.set_page_config(page_title="LangChain Demo", page_icon=":robot:")
-st.header("LangChain Demo")
+@cl.on_message
+def chat(user_input):
+    if user_input:
+        output = chain.run(question=user_input)
+        return output
 
-if "generated" not in st.session_state:
-    st.session_state["generated"] = []
-
-if "past" not in st.session_state:
-    st.session_state["past"] = []
-
-
-def get_text():
-    input_text = st.text_input("You: ", "", key="input")
-    return input_text
-
-
-user_input = get_text()
-
-if user_input:
-    output = chain.run(question=user_input)
-    st.session_state.past.append(user_input)
-    st.session_state.generated.append(output)
-
-if st.session_state["generated"]:
-    for i in range(len(st.session_state["generated"]) - 1, -1, -1):
-        message(st.session_state["generated"][i], key=str(i))
-        message(st.session_state["past"][i], is_user=True, key=str(i) + "_user")

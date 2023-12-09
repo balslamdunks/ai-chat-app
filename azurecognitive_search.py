@@ -2,15 +2,18 @@ import os
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores.azuresearch import AzureSearch
 from langchain.document_loaders import AzureBlobStorageContainerLoader
-from langchain.text_splitter import CharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from dotenv import load_dotenv
+
+load_dotenv()
 
 model: str = "text-embedding-ada-002"
 
-vector_store_address: str = f"https://${os.environ.get('AZURE_COGNITIVE_SEARCH_SERVICE_NAME')}.search.windows.net"
+vector_store_address: str = f"https://cognitivesearchtake2.search.windows.net"
 
 
 embeddings: OpenAIEmbeddings = OpenAIEmbeddings(deployment=model, chunk_size=1)
-index_name: str = "langchain-vector-demo"
+index_name: str = "langchain-vector-langchain"
 vector_store: AzureSearch = AzureSearch(
     azure_search_endpoint=vector_store_address,
     azure_search_key=os.environ.get("AZURE_COGNITIVE_SEARCH_API_KEY"),
@@ -24,7 +27,7 @@ loader = AzureBlobStorageContainerLoader(
 )
 documents = loader.load()
 
-text_splitter = CharacterTextSplitter(chunk_size=150, chunk_overlap=20)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=1024, chunk_overlap=64)
 docs = text_splitter.split_documents(documents)
 vector_store.add_documents(documents=docs)
 

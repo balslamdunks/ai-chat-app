@@ -1,6 +1,8 @@
 azure_storage==0.36.0
-langchain
-openai
+langchain==0.0.316
+openai==0.28.1
 python-dotenv
 streamlit
 streamlit_chat
+chainlit
+azure-search
