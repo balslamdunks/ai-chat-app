@@ -38,7 +38,7 @@ For instance if you get the error:
 `ModuleNotFoundError: No module named 'azure-search'` you may need to manually install this module for local behavior `python3 -m pip install azure-search`, this would not be needed in the docker implementation, however.
 
 ## Pipeline Setup
-For these steps I would highly recommend watching C[oding Craschourses video](https://www.youtube.com/watch?v=WAedZvSDZAI) on Azure setup but I will go ahead and include them here as well.
+For these steps I would highly recommend watching [Coding Craschourses video](https://www.youtube.com/watch?v=WAedZvSDZAI) on Azure setup but I will go ahead and include them here as well.
 
 
 ### Azure Resource Group Setup
@@ -121,6 +121,8 @@ The **application_chainlit.py** code contains the chainlit-based code with the L
 		- **Optional** Add variable called WEBSITES_CONTAINER_START_TIME_LIMIT and set it equal to 1800 to prevent timeout errors.
 	- Under **General Settings** select **On** for **Always On** this helps with timeout errors.
 
-
+## Currently Available Apps at Time of Upload:
+- [Streamlit](courselangchain.azurewebsites.net)
+- [Chainlit](https://aicoursebot.azurewebsites.net/)
 	
 	
