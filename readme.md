@@ -17,6 +17,10 @@ You will need to have some prerequisite elements setup for this project.
  5. Install [Docker](https://www.docker.com/get-started/)
  6. **Optional**: I would also recommend using pyenv to easily switch between python versions in case you come across some limitations with your current version.
 
+## High Level Diagram of Setup
+
+![Alt text](diagrams/cloud_representation.drawio.png?raw=true "High Level Overview")
+
 ## Local Environment Setup
 1. Clone the repo `git clone github.com:balslamdunks/ai-chat-app.gi` somewhere on your local machine.
 2. Navigate to the base directory.
