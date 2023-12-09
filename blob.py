@@ -1,7 +1,7 @@
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 import os
 
-connection_string = "DefaultEndpointsProtocol=https;AccountName=langchainstoragegroup;AccountKey=QRkbYjDcPJRhUC3DUJujd+71bU2kSzHSHiI3MS9HZqtBibqQGumcoXZbNXfncQFbnYBgfUI8Btre+AStuTn2Ew==;EndpointSuffix=core.windows.net"  #
+connection_string = "ENTER_CONNECTION_STRING_HERE"  #
 container_name = "langchaincontainer"
 blob_name = "langchainstoragegroup"
 directory_path = "Data"
